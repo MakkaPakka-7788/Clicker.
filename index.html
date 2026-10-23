@@ -23,6 +23,47 @@
 <script defer="defer" src="js/chunk-vendors.2f298e3d.js"></script>
 <script defer="defer" src="js/app.8440675a.js"></script>
 <link href="css/app.f051904f.css" rel="stylesheet">
+
+<script>
+/* MakkaPakka RRR home shortcut */
+(function () {
+  let rrrTapCount = 0;
+  let rrrResetTimer = null;
+
+  window.addEventListener("keydown", function (event) {
+    if (!event.key || event.key.toLowerCase() !== "r") {
+      if (!event.repeat) {
+        rrrTapCount = 0;
+        clearTimeout(rrrResetTimer);
+      }
+      return;
+    }
+
+    const target = event.target;
+    if ((target instanceof Element && target.closest("input, textarea, select, [contenteditable='true'], [contenteditable='']")) ||
+        event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if (event.repeat) return;
+
+    rrrTapCount += 1;
+    clearTimeout(rrrResetTimer);
+
+    if (rrrTapCount === 3) {
+      rrrTapCount = 0;
+      window.location.href = "https://makkapakka-7788.github.io/makkapakka/?games=true";
+      return;
+    }
+
+    rrrResetTimer = setTimeout(function () {
+      rrrTapCount = 0;
+    }, 850);
+  }, true);
+})();
+</script>
 </head>
 <body>
 <div id="browser-warning">Your browser is not supported.<br>Please update to a newer browser.</div>
